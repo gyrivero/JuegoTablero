@@ -60,7 +60,7 @@ public enum Monstruos {
         int precision = dado.girar(1,4);
         if (precision > 1){
             int daño = dado.girar(dañoMin,dañoMax);
-            daño -= jugador.getArmadura().defensa;
+            daño -= jugador.getArmadura().getDefensa();
             if (daño < 0)
             {
                 daño = 0;

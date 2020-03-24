@@ -1,5 +1,6 @@
 package com.mycompany.juegotablero;
 
+import com.mycompany.juegotablero.objetos.Armaduras;
 import com.mycompany.juegotablero.objetos.Armas;
 import com.mycompany.juegotablero.evaluadores.EvaluadorPreguntas;
 import javafx.scene.control.Tab;
@@ -15,6 +16,10 @@ public class Jugador {
     private Armaduras armadura;
     private int posicion;
     private int pociones;
+
+    public Jugador() {
+        
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -34,7 +39,8 @@ public class Jugador {
     @Override
     public int hashCode() {
         return Objects.hash(vidaMaxima, nombre, vida, dado, arma, armadura, posicion, pociones);
-    }
+    }    
+   
 
     public Jugador(String nombre) {
         this.posicion = 0;
@@ -86,7 +92,7 @@ public class Jugador {
     }
 
     public void revisarEstadisticas() {
-        System.out.println("Arma: " + arma.getNombre() + " (" + arma.getMin() + "-" + arma.getMax() + ")" + " - Armadura: " + armadura.nombre + " (" + armadura.defensa + ")" + " - Pociones: " + pociones + ".");
+        System.out.println("Arma: " + arma.getNombre() + " (" + arma.getMin() + "-" + arma.getMax() + ")" + " - Armadura: " + armadura.getNombre() + " (" + armadura.getDefensa() + ")" + " - Pociones: " + pociones + ".");
         System.out.println("Vida: " + vida + ".");
         System.out.println("Posicion: " + posicion + ".");
         System.out.println();
@@ -154,7 +160,7 @@ public class Jugador {
         int precision = dado.girar(1,10);
         if (precision <= 6) {
             int daño = dado.girar(arma.getMin(),arma.getMax());
-            daño -= jugador.getArmadura().defensa;
+            daño -= jugador.getArmadura().getDefensa();
             if (daño < 0)
             {
                 daño = 0;

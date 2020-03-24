@@ -1,5 +1,6 @@
 package com.mycompany.juegotablero;
 
+import com.mycompany.juegotablero.objetos.Armaduras;
 import com.mycompany.juegotablero.objetos.Armas;
 import com.mycompany.juegotablero.evaluadores.EvaluadorPreguntas;
 
@@ -270,9 +271,9 @@ public class Tablero {
         {
             return;
         }
-        System.out.println("Encuentras 1 " + armadura.nombre + " (" + armadura.defensa + ").");
-        System.out.println("Tu armadura actual es: " + jugador.getArmadura().nombre + "(" + jugador.getArmadura().defensa + ").");
-        System.out.println("\nQueres agarrar la armadura? " + armadura.nombre + ".");
+        System.out.println("Encuentras 1 " + armadura.getNombre() + " (" + armadura.getDefensa() + ").");
+        System.out.println("Tu armadura actual es: " + jugador.getArmadura().getNombre() + "(" + jugador.getArmadura().getDefensa() + ").");
+        System.out.println("\nQueres agarrar la armadura? " + armadura.getNombre() + ".");
         if (EvaluadorPreguntas.preguntarSiNo()) {
             jugador.setArmadura(armadura);
             System.out.println("Cambiaste de armadura.");

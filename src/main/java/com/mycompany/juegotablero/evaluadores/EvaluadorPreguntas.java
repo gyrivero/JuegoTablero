@@ -63,4 +63,15 @@ public class EvaluadorPreguntas {
         }
         return 3;
     }
+
+    static public boolean preguntarGrabar() {
+        System.out.println("Queres grabar la partida y dejar de jugar?");
+        return preguntarSiNo();
+    }
+
+    public static boolean preguntarRecuperar() {
+        System.out.println("Queres recuperar la ultima partida guardada?");
+        System.out.println("Si eliges 'NO' borraras la partida guardada");
+        return preguntarSiNo();
+    }
 }

@@ -1,8 +1,6 @@
 package com.mycompany.juegotablero;
 
 import com.mycompany.juegotablero.evaluadores.EvaluadorPreguntas;
-import com.mycompany.juegotablero.evaluadores.EvaluadorGanador;
-import com.mycompany.juegotablero.interfaces.Evaluador;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,17 +8,36 @@ import java.util.List;
 public class Juego {
 
     List<Jugador> jugadores = new ArrayList<>();
-    Tablero tablero = new Tablero();
-    Evaluador eval = new EvaluadorGanador();
+    Tablero tablero = new Tablero();    
 
-    static int cantidadJugadores;
+    private int cantidadJugadores;
+    private int ronda = 1;
 
-    public void inicioJuego() {
-        bienvenida();
-        EvaluadorPreguntas.esperarTecla();
-        crearJugadores();
-        turno();
+    public List<Jugador> getJugadores() {
+        return jugadores;
     }
+
+    public void setJugadores(List<Jugador> jugadores) {
+        this.jugadores = jugadores;
+    }
+
+    public int getCantidadJugadores() {
+        return cantidadJugadores;
+    }
+
+    public void setCantidadJugadores(int cantidadJugadores) {
+        this.cantidadJugadores = cantidadJugadores;
+    }
+
+    public int getRonda() {
+        return ronda;
+    }
+
+    public void setRonda(int ronda) {
+        this.ronda = ronda;
+    }
+    
+    
 
     public void bienvenida() {
         cantidadJugadores = EvaluadorPreguntas.preguntarCantidadJugadores();
@@ -35,25 +52,23 @@ public class Juego {
 
     public void crearJugadores() {
         for (int i = 0; i < cantidadJugadores; i++) {
-            System.out.println("Jugador Nª: " + (i+1));
+            System.out.println("\nJugador Nª: " + (i+1));
             jugadores.add(new Jugador(EvaluadorPreguntas.preguntarNombres()));
         }
     }
 
-    public void turno() {
-        boolean juegoTerminado = false;
-        while(!juegoTerminado) {
-            for (Jugador j : jugadores) {
-                if (j.getVida()>0) {
-                    System.out.println("\nTurno de: " + j.getNombre() + ".\n--");
-                    fasePrimera(j);
-                    EvaluadorPreguntas.esperarTecla();
-                    System.out.println("---------------------------");
-                    faseEmboscada(j,jugadores);
-                }
+    public void ronda() {      
+        System.out.println("Comienza la ronda N°" + ronda);
+        for (Jugador j : jugadores) {
+            if (j.getVida()>0) {
+                System.out.println("\nTurno de: " + j.getNombre() + ".\n--");
+                fasePrimera(j);
+                EvaluadorPreguntas.esperarTecla();
+                System.out.println("---------------------------");
+                faseEmboscada(j,jugadores);
             }
-            juegoTerminado = eval.evaluar(jugadores);
         }
+        ronda +=1;
     }
 
     private void faseEmboscada(Jugador j, List<Jugador> jugadores) {
@@ -109,6 +124,12 @@ public class Juego {
                     System.out.println("Opcion incorrecta.");
             }
         }
+    }
+
+    public void finalizar() {
+        System.out.println("El juego ha terminado!");
+        System.out.println("Presione enter para salir.");
+        EvaluadorPreguntas.esperarTecla();
     }
 
 }
