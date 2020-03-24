@@ -1,5 +1,7 @@
 package com.mycompany.juegotablero;
 
+import com.mycompany.juegotablero.evaluadores.EvaluadorPreguntas;
+
 public enum Monstruos {
     GOBLIN(5, 5,1,4,"Goblin"),
     LOBO(10, 10,2,5,"Lobo"),

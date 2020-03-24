@@ -1,5 +1,7 @@
 package com.mycompany.juegotablero;
 
+import com.mycompany.juegotablero.objetos.Armas;
+import com.mycompany.juegotablero.evaluadores.EvaluadorPreguntas;
 import javafx.scene.control.Tab;
 
 import java.util.Objects;
@@ -84,7 +86,7 @@ public class Jugador {
     }
 
     public void revisarEstadisticas() {
-        System.out.println("Arma: " + arma.nombre + " (" + arma.min + "-" + arma.max + ")" + " - Armadura: " + armadura.nombre + " (" + armadura.defensa + ")" + " - Pociones: " + pociones + ".");
+        System.out.println("Arma: " + arma.getNombre() + " (" + arma.getMin() + "-" + arma.getMax() + ")" + " - Armadura: " + armadura.nombre + " (" + armadura.defensa + ")" + " - Pociones: " + pociones + ".");
         System.out.println("Vida: " + vida + ".");
         System.out.println("Posicion: " + posicion + ".");
         System.out.println();
@@ -134,7 +136,7 @@ public class Jugador {
     public void atacar(Monstruos monstruo) {
         int precision = dado.girar(1,4);
         if (precision>1) {
-            int daño = dado.girar(arma.min,arma.max);
+            int daño = dado.girar(arma.getMin(),arma.getMax());
             monstruo.setVida(monstruo.getVida()-daño);
             if (monstruo.getVida() < 0) {
                 monstruo.setVida(0);
@@ -151,7 +153,7 @@ public class Jugador {
     public void atacar(Jugador jugador,int probabilidad) {
         int precision = dado.girar(1,10);
         if (precision <= 6) {
-            int daño = dado.girar(arma.min,arma.max);
+            int daño = dado.girar(arma.getMin(),arma.getMax());
             daño -= jugador.getArmadura().defensa;
             if (daño < 0)
             {

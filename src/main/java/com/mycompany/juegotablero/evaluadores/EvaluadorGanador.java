@@ -1,6 +1,8 @@
-package com.mycompany.juegotablero;
+package com.mycompany.juegotablero.evaluadores;
 
-import com.mycompany.juegotablero.Interfaces.Evaluador;
+import com.mycompany.juegotablero.Jugador;
+import com.mycompany.juegotablero.Tablero;
+import com.mycompany.juegotablero.interfaces.Evaluador;
 import javafx.scene.control.Tab;
 import org.w3c.dom.ls.LSOutput;
 

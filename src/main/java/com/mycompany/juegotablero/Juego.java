@@ -1,6 +1,8 @@
 package com.mycompany.juegotablero;
 
-import com.mycompany.juegotablero.Interfaces.Evaluador;
+import com.mycompany.juegotablero.evaluadores.EvaluadorPreguntas;
+import com.mycompany.juegotablero.evaluadores.EvaluadorGanador;
+import com.mycompany.juegotablero.interfaces.Evaluador;
 
 import java.util.ArrayList;
 import java.util.List;

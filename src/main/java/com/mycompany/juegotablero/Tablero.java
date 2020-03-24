@@ -1,5 +1,8 @@
 package com.mycompany.juegotablero;
 
+import com.mycompany.juegotablero.objetos.Armas;
+import com.mycompany.juegotablero.evaluadores.EvaluadorPreguntas;
+
 public class Tablero {
     private static int casillaFinal = 34;
     private boolean hayMonstruo = false;
@@ -252,9 +255,9 @@ public class Tablero {
         {
             return;
         }
-        System.out.println("Encuentras 1 " + arma.nombre + " (" + arma.min + "-" + arma.max + ").");
-        System.out.println("Tu arma actual es: " + jugador.getArma().nombre + " (" + jugador.getArma().min + "-" + jugador.getArma().max + ").");
-        System.out.println("\nQueres agarrar el arma? " + arma.nombre + ".");
+        System.out.println("Encuentras 1 " + arma.getNombre() + " (" + arma.getMin() + "-" + arma.getMax() + ").");
+        System.out.println("Tu arma actual es: " + jugador.getArma().getNombre() + " (" + jugador.getArma().getMin() + "-" + jugador.getArma().getMax() + ").");
+        System.out.println("\nQueres agarrar el arma? " + arma.getNombre() + ".");
         if (EvaluadorPreguntas.preguntarSiNo()) {
             jugador.setArma(arma);
             System.out.println("Cambiaste de arma.");

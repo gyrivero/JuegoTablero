@@ -1,4 +1,4 @@
-package com.mycompany.juegotablero.Interfaces;
+package com.mycompany.juegotablero.interfaces;
 
 import java.util.List;
 

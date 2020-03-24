@@ -1,4 +1,4 @@
-package com.mycompany.juegotablero;
+package com.mycompany.juegotablero.evaluadores;
 
 public class EvaluadorPreguntas {
     static java.util.Scanner teclado = new java.util.Scanner(System.in);
