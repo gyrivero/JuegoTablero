@@ -16,6 +16,17 @@ public class Jugador {
     private Armaduras armadura;
     private int posicion;
     private int pociones;
+    private int id;   
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    
 
     public Jugador() {
         
@@ -33,22 +44,24 @@ public class Jugador {
                 Objects.equals(nombre, jugador.nombre) &&
                 Objects.equals(dado, jugador.dado) &&
                 arma == jugador.arma &&
+                id == jugador.id &&
                 armadura == jugador.armadura;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(vidaMaxima, nombre, vida, dado, arma, armadura, posicion, pociones);
+        return Objects.hash(vidaMaxima, nombre, vida, dado, arma, armadura, posicion, pociones,id);
     }    
    
 
-    public Jugador(String nombre) {
+    public Jugador(String nombre,int id) {
         this.posicion = 0;
         this.nombre = nombre;
         this.vida = vidaMaxima;
         this.arma = Armas.PUÑOS;
         this.armadura = Armaduras.ROPA;
         this.pociones = 0;
+        this.id = id;
     }
 
     public int getPociones() {
@@ -184,11 +197,15 @@ public class Jugador {
         System.out.println("Si lo intentas, el tambien podra intentar darte uno.");
         if (EvaluadorPreguntas.preguntarSiNo()) {
             atacar(jugador,6);
-            System.out.println("Turno de ataque de " + jugador.getNombre() + ".");
-            jugador.atacar(this,3);
+            if (jugador.getVida() > 0) {
+                System.out.println("Turno de ataque de " + jugador.getNombre() + ".");
+                jugador.atacar(this,3);                
+                return;
+            }
+            System.out.println("El jugador: " + jugador.getNombre() + " ha muerto!");            ;
             return;
         }
         System.out.println("No atacas al jugador.");
         EvaluadorPreguntas.esperarTecla();
-    }
+    }        
 }

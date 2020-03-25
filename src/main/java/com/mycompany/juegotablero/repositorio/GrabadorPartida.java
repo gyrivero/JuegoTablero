@@ -24,7 +24,7 @@ public class GrabadorPartida {
     
     public void grabarJugadores(Jugador jugador) {
         try {
-            String query = "INSERT INTO jugadores (Nombre, Vida, Posicion, Pociones, Arma, Armadura) VALUES (?,?,?,?,?,?)";
+            String query = "INSERT INTO jugadores (Nombre, Vida, Posicion, Pociones, Arma, Armadura,Id) VALUES (?,?,?,?,?,?,?)";
             ps = conexion.prepareStatement(query);
             ps.setString(1, jugador.getNombre());
             ps.setInt(2, jugador.getVida());
@@ -32,6 +32,7 @@ public class GrabadorPartida {
             ps.setInt(4, jugador.getPociones());
             ps.setString(5, jugador.getArma().name());
             ps.setString(6, jugador.getArmadura().name());
+            ps.setInt(7,jugador.getId());            
             ps.executeUpdate();
             System.out.println("Jugador: " + jugador.getNombre() + " guardado correctamente!\n");
         } catch (SQLException e) {
@@ -40,12 +41,13 @@ public class GrabadorPartida {
         }
     }
     
-    public void grabarDatos(int ronda, int cantidadJugadores) {
+    public void grabarDatos(int ronda, int cantidadJugadores, int momentoDeRonda) {
         try {
-            String query = "INSERT INTO datos (Ronda, Cantidad_jugadores) VALUES (?,?)";
+            String query = "INSERT INTO datos (Ronda, Cantidad_jugadores, Momento_ronda) VALUES (?,?,?)";
             ps = conexion.prepareStatement(query);
             ps.setInt(1, ronda);
             ps.setInt(2, cantidadJugadores);
+            ps.setInt(3, momentoDeRonda);
             ps.executeUpdate();
             System.out.println("Datos de la partida guardados correctamente!\n");
         } catch (SQLException e) {

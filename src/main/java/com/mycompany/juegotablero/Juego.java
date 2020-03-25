@@ -1,6 +1,9 @@
 package com.mycompany.juegotablero;
 
 import com.mycompany.juegotablero.evaluadores.EvaluadorPreguntas;
+import com.mycompany.juegotablero.repositorio.Conexion;
+import com.mycompany.juegotablero.repositorio.GrabadorPartida;
+import com.mycompany.juegotablero.repositorio.LimpiadorBD;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,10 +11,21 @@ import java.util.List;
 public class Juego {
 
     List<Jugador> jugadores = new ArrayList<>();
-    Tablero tablero = new Tablero();    
+    Tablero tablero = new Tablero();  
+    GrabadorPartida grabador = new GrabadorPartida(Conexion.getConnection());  
+    LimpiadorBD limpiador = new LimpiadorBD(Conexion.getConnection());
 
     private int cantidadJugadores;
     private int ronda = 1;
+    private int momentoDeRonda = 0;
+
+    public int getMomentoDeRonda() {
+        return momentoDeRonda;
+    }
+
+    public void setMomentoDeRonda(int momentoDeRonda) {
+        this.momentoDeRonda = momentoDeRonda;
+    }    
 
     public List<Jugador> getJugadores() {
         return jugadores;
@@ -35,9 +49,7 @@ public class Juego {
 
     public void setRonda(int ronda) {
         this.ronda = ronda;
-    }
-    
-    
+    }    
 
     public void bienvenida() {
         cantidadJugadores = EvaluadorPreguntas.preguntarCantidadJugadores();
@@ -50,24 +62,28 @@ public class Juego {
         }
     }
 
-    public void crearJugadores() {
+    public void crearJugadores() {        
         for (int i = 0; i < cantidadJugadores; i++) {
             System.out.println("\nJugador Nª: " + (i+1));
-            jugadores.add(new Jugador(EvaluadorPreguntas.preguntarNombres()));
+            jugadores.add(new Jugador(EvaluadorPreguntas.preguntarNombres(),(i+1)));            
         }
     }
 
     public void ronda() {      
         System.out.println("Comienza la ronda N°" + ronda);
         for (Jugador j : jugadores) {
-            if (j.getVida()>0) {
+            if (j.getId() == momentoDeRonda) {
+                if (j.getVida()>0) {
                 System.out.println("\nTurno de: " + j.getNombre() + ".\n--");
                 fasePrimera(j);
                 EvaluadorPreguntas.esperarTecla();
                 System.out.println("---------------------------");
                 faseEmboscada(j,jugadores);
-            }
+                }
+                momentoDeRonda += 1;                
+            }            
         }
+        momentoDeRonda = 1;
         ronda +=1;
     }
 
@@ -117,19 +133,36 @@ public class Juego {
                     j.tomarPocion();
                     break;
                 case 3:
+                    limpiador.LimpiarBD();
+                    grabador.grabarDatos(ronda, cantidadJugadores, momentoDeRonda);
+                    for (Jugador jugador : jugadores) {
+                        grabador.grabarJugadores(jugador);   
+                    }
+                    break;
+                case 4:
+                    finalizar(true);                    
+                case 5:
                     dadoLanzado=true;
                     j.moverse(tablero);
                     break;
                 default:
                     System.out.println("Opcion incorrecta.");
+                    break;
             }
         }
     }
 
-    public void finalizar() {
-        System.out.println("El juego ha terminado!");
+    public void finalizar(boolean salir) {
+        if (salir) {            
+            System.out.println("\nSales del juego!");            
+            System.exit(0);
+        }
+        else {
+            System.out.println("El juego ha terminado!");
+        }        
         System.out.println("Presione enter para salir.");
         EvaluadorPreguntas.esperarTecla();
+        
     }
 
 }

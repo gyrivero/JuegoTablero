@@ -11,8 +11,7 @@ public class App {
     public static void main(String[] args) {
         Juego juego = new Juego();
         EvaluadorGanador eval = new EvaluadorGanador();
-        RecuperadorPartida recuperador = new RecuperadorPartida(Conexion.getConnection());
-        GrabadorPartida grabador = new GrabadorPartida(Conexion.getConnection());  
+        RecuperadorPartida recuperador = new RecuperadorPartida(Conexion.getConnection());          
         LimpiadorBD limpiador = new LimpiadorBD(Conexion.getConnection());
         
         if(recuperador.chequearDatos() && EvaluadorPreguntas.preguntarRecuperar()) {            
@@ -25,20 +24,11 @@ public class App {
             juego.crearJugadores();            
         }        
         EvaluadorPreguntas.esperarTecla();        
-        while (!eval.evaluar(juego.getJugadores()) && !EvaluadorPreguntas.preguntarGrabar()) {
+        while (!eval.evaluar(juego.getJugadores())) {
             juego.ronda();            
-        }
-        if (eval.evaluar(juego.getJugadores())){
-            eval.devolverResultado(eval.isGanadores(),eval.isMuertos());
-        }
-        else {
-        limpiador.LimpiarBD();
-            for (Jugador jugador : juego.getJugadores()) {
-                grabador.grabarJugadores(jugador);   
-            }           
-            grabador.grabarDatos(juego.getRonda(), juego.getCantidadJugadores());
-        }
-        juego.finalizar();
+        }        
+        eval.devolverResultado(eval.isGanadores(),eval.isMuertos());                
+        juego.finalizar(false);
         
 
     }

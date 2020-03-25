@@ -58,6 +58,7 @@ public class RecuperadorPartida {
                 juego.getJugadores().get(index).setPociones(rs.getInt("Pociones"));
                 juego.getJugadores().get(index).setArma(Armas.valueOf(rs.getString("Arma")));
                 juego.getJugadores().get(index).setArmadura(Armaduras.valueOf(rs.getString("Armadura")));
+                juego.getJugadores().get(index).setId(rs.getInt("Id"));
                 index += 1;
             }
             System.out.println("Jugadores recuperados correctamente!\n");            
@@ -76,6 +77,7 @@ public class RecuperadorPartida {
             while (rs.next()) {                
                 juego.setRonda(rs.getInt("Ronda"));
                 juego.setCantidadJugadores(rs.getInt("Cantidad_jugadores"));
+                juego.setMomentoDeRonda(rs.getInt("Momento_ronda"));
             }
             System.out.println("Datos recuperados correctamente!\n");            
         } catch (Exception e) {

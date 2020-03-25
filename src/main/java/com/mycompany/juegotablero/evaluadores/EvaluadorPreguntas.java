@@ -49,7 +49,11 @@ public class EvaluadorPreguntas {
 
     static public int elegirAccion(){
         while (!ingresoCorrecto) {
-            System.out.println("Escribe 'est' para ver tu equipo y estadisticas.\nEscribe 'pocion' para tomar una pocion.\nPresiona Enter para lanzar el dado.");
+            System.out.println("Escribe 'est' para ver tu equipo y estadisticas."+
+                    "\nEscribe 'pocion' para tomar una pocion."+
+                    "\nEscribe 'guardar' para guardar la partida."+
+                    "\nEscribe 'salir' para salir de la partida."+
+                    "\nPresiona Enter para lanzar el dado.");
             ingresoUsuario = teclado.nextLine();
             if (ingresoUsuario.equalsIgnoreCase("est")){
                 return 1;
@@ -57,11 +61,17 @@ public class EvaluadorPreguntas {
             else if (ingresoUsuario.equalsIgnoreCase("pocion")){
                 return 2;
             }
+            else if (ingresoUsuario.equalsIgnoreCase("guardar")){
+                return 3;
+            }
+            else if (ingresoUsuario.equalsIgnoreCase("salir")){
+                return 4;
+            }
             else if (ingresoUsuario.isEmpty()){
-            return 3;
+                return 5;
             }
         }
-        return 3;
+        return 5;
     }
 
     static public boolean preguntarGrabar() {

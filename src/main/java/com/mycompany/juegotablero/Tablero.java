@@ -152,7 +152,7 @@ public class Tablero {
                 encontrarCofre(jugador);
                 break;
             case 33:
-                encontrarCueva(jugador);
+                encontrarMonstruo(jugador,Monstruos.DRAGON);
                 break;
             case 34:
                 encontrarMonstruo(jugador,Monstruos.ORCO);
@@ -355,16 +355,16 @@ public class Tablero {
         System.out.println("Te adentras en una cueva oscura.");
         for (int i = 0; i < 3; i++) {
             int opcion = dado.girar(1,100);
-            if (opcion >= 1 && opcion <= 50) {
+            if (opcion >= 1 && opcion <= 30) {
                 encontrarMonstruo(jugador, Monstruos.GOBLIN);
             }
-            else if (opcion >= 51 && opcion <= 83) {
+            else if (opcion >= 31 && opcion <= 63) {
                 encontrarMonstruo(jugador, Monstruos.LOBO);
             }
-            else if (opcion >= 84 && opcion <= 94) {
+            else if (opcion >= 64 && opcion <= 84) {
                 encontrarMonstruo(jugador, Monstruos.ORCO);
             }
-            else if (opcion >= 95 && opcion <= 99) {
+            else if (opcion >= 85 && opcion <= 97) {
                 encontrarMonstruo(jugador, Monstruos.OGRO);
             }
             else {
